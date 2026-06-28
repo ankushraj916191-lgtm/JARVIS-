@@ -1,28 +1,23 @@
+// ======================
 // JARVIS v3.0
+// ======================
+
+// TEXT TO SPEECH
 
 function speak(text) {
+
     speechSynthesis.cancel();
 
-    const utterance = new SpeechSynthesisUtterance(text);
+    const speech = new SpeechSynthesisUtterance(text);
 
-    utterance.lang = "hi-IN";
-    utterance.rate = 1;
-    utterance.pitch = 1;
+    speech.lang = "hi-IN";
+    speech.rate = 0.95;
+    speech.pitch = 1;
 
-    speechSynthesis.speak(utterance);
+    speechSynthesis.speak(speech);
 }
 
-// Welcome
-
-window.addEventListener("load", () => {
-
-    setTimeout(() => {
-        speak("नमस्ते Sir। JARVIS ऑनलाइन है।");
-    }, 1000);
-
-});
-
-// Clock
+// CLOCK
 
 function updateClock() {
 
@@ -30,16 +25,34 @@ function updateClock() {
 
     const time = now.toLocaleTimeString("hi-IN");
 
-    const clock = document.getElementById("clock");
+    const clock =
+        document.getElementById("clock");
 
     if (clock) {
+
         clock.innerText = time;
+
     }
+
 }
 
 setInterval(updateClock, 1000);
 
-// Speech Recognition
+updateClock();
+
+// WELCOME
+
+window.onload = () => {
+
+    setTimeout(() => {
+
+        speak("नमस्ते Sir। JARVIS ऑनलाइन है।");
+
+    }, 1000);
+
+};
+
+// SPEECH RECOGNITION
 
 const SpeechRecognition =
     window.SpeechRecognition ||
@@ -47,11 +60,14 @@ const SpeechRecognition =
 
 if (!SpeechRecognition) {
 
-    alert("Voice Recognition सपोर्ट नहीं है।");
+    alert(
+        "आपका ब्राउज़र Voice Recognition सपोर्ट नहीं करता।"
+    );
 
 } else {
 
-    const recognition = new SpeechRecognition();
+    const recognition =
+        new SpeechRecognition();
 
     recognition.lang = "hi-IN";
 
@@ -71,6 +87,8 @@ if (!SpeechRecognition) {
 
     };
 
+    // RESULT
+
     recognition.onresult = (event) => {
 
         let command =
@@ -83,11 +101,45 @@ if (!SpeechRecognition) {
         micBtn.innerText =
             "🎤 JARVIS";
 
+        // HELLO
+
         if (
+
+            command.includes("हेलो") ||
+            command.includes("hello") ||
+            command.includes("hi") ||
+            command.includes("नमस्ते")
+
+        ) {
+
+            const replies = [
+
+                "नमस्ते Sir।",
+                "जी Sir, मैं सुन रहा हूँ।",
+                "हैलो Sir, क्या सहायता करूँ?",
+                "मैं तैयार हूँ Sir।"
+
+            ];
+
+            let randomReply =
+                replies[
+                    Math.floor(
+                        Math.random() *
+                        replies.length
+                    )
+                ];
+
+            speak(randomReply);
+
+        }
+
+        // YOUTUBE
+
+        else if (
             command.includes("यूट्यूब")
         ) {
 
-            speak("ठीक है Sir");
+            speak("ठीक है Sir।");
 
             window.open(
                 "https://youtube.com",
@@ -96,11 +148,13 @@ if (!SpeechRecognition) {
 
         }
 
+        // INSTAGRAM
+
         else if (
             command.includes("इंस्टाग्राम")
         ) {
 
-            speak("जी Sir");
+            speak("जी Sir।");
 
             window.open(
                 "https://instagram.com",
@@ -109,12 +163,14 @@ if (!SpeechRecognition) {
 
         }
 
+        // WHATSAPP
+
         else if (
             command.includes("व्हाट्सएप")
         ) {
 
             speak(
-                "व्हाट्सएप खोल रहा हूँ Sir"
+                "व्हाट्सएप खोल रहा हूँ Sir।"
             );
 
             window.open(
@@ -124,40 +180,114 @@ if (!SpeechRecognition) {
 
         }
 
+        // TIME
+
         else if (
             command.includes("समय")
         ) {
 
-            const time =
+            let time =
                 new Date()
-                .toLocaleTimeString("hi-IN");
+                .toLocaleTimeString(
+                    "hi-IN"
+                );
 
             speak(
-                "अभी " + time + " बजे हैं Sir"
+                "अभी " +
+                time +
+                " बजे हैं Sir।"
             );
 
         }
 
+        // SEARCH
+
+        else if (
+            command.startsWith("खोजो")
+        ) {
+
+            let query =
+                command
+                .replace(
+                    "खोजो",
+                    ""
+                )
+                .trim();
+
+            speak(
+                "खोज रहा हूँ Sir।"
+            );
+
+            window.open(
+                "https://www.google.com/search?q=" +
+                encodeURIComponent(
+                    query
+                ),
+                "_blank"
+            );
+
+        }
+
+        // WHO ARE YOU
+
+        else if (
+            command.includes(
+                "तुम कौन हो"
+            )
+        ) {
+
+            speak(
+                "मैं JARVIS हूँ Sir। आपका निजी सहायक।"
+            );
+
+        }
+
+        // UNKNOWN
+
         else {
 
             speak(
-                "माफ़ कीजिए Sir, मैं यह कमांड नहीं समझ पाया।"
+                "माफ़ कीजिए Sir, मैं यह कमांड अभी नहीं समझ पाया।"
             );
 
         }
 
     };
 
-    recognition.onerror = (e) => {
+    // END
 
-        console.log(e.error);
+    recognition.onend = () => {
 
         micBtn.innerText =
             "🎤 JARVIS";
 
-        speak(
-            "माइक्रोफोन में समस्या है Sir"
-        );
+    };
+
+    // ERROR
+
+    recognition.onerror = (event) => {
+
+        console.log(event.error);
+
+        micBtn.innerText =
+            "🎤 JARVIS";
+
+        if (
+            event.error ===
+            "not-allowed"
+        ) {
+
+            speak(
+                "Sir, कृपया माइक्रोफोन की अनुमति दें।"
+            );
+
+        } else {
+
+            speak(
+                "मैं आपकी आवाज़ नहीं सुन पाया, Sir।"
+            );
+
+        }
 
     };
 
