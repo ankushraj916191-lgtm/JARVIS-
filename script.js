@@ -1,9 +1,10 @@
-// =========================
-// JARVIS v1.0 - script.js
-// =========================
+// =======================
+// JARVIS v1.0
+// script.js
+// =======================
 
-// Welcome
-window.onload = function () {
+// Welcome Message
+window.onload = () => {
 
     setTimeout(() => {
         speak("नमस्ते Sir। JARVIS तैयार है।");
@@ -13,13 +14,13 @@ window.onload = function () {
     setInterval(updateClock, 1000);
 };
 
-// =========================
-// Human Voice Function
-// =========================
+// =======================
+// Text To Speech
+// =======================
 
 function speak(text) {
 
-    window.speechSynthesis.cancel();
+    speechSynthesis.cancel();
 
     let speech = new SpeechSynthesisUtterance(text);
 
@@ -28,18 +29,29 @@ function speak(text) {
     speech.pitch = 0.9;
     speech.volume = 1;
 
-    window.speechSynthesis.speak(speech);
+    speechSynthesis.speak(speech);
 }
 
-// =========================
+// =======================
 // Clock
-// =========================
+// =======================
 
 function updateClock() {
 
     let now = new Date();
 
-    let time = now.toLocaleTimeString("hi-IN");
+    let time = now.toLocaleTimeString("en-IN", {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
 
     let clock = document.getElementById("clock");
     let mainTime = document.getElementById("time");
+
+    if (clock) clock.innerText = time;
+    if (mainTime) mainTime.innerText = time;
+}
+
+// =======================
+// Speech Recognition
+//
