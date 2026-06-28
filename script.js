@@ -1,71 +1,45 @@
-// ===============================
-// JARVIS v2.0 - script.js
-// Hindi Voice Assistant
-// ===============================
-
-// -------------------------------
-// TEXT TO SPEECH
-// -------------------------------
+// JARVIS v3.0
 
 function speak(text) {
+    speechSynthesis.cancel();
 
-    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
 
-    let speech = new SpeechSynthesisUtterance(text);
+    utterance.lang = "hi-IN";
+    utterance.rate = 1;
+    utterance.pitch = 1;
 
-    speech.lang = "hi-IN";
-    speech.rate = 0.95;
-    speech.pitch = 1;
-    speech.volume = 1;
-
-    window.speechSynthesis.speak(speech);
+    speechSynthesis.speak(utterance);
 }
 
-// -------------------------------
-// CLOCK
-// -------------------------------
+// Welcome
+
+window.addEventListener("load", () => {
+
+    setTimeout(() => {
+        speak("नमस्ते Sir। JARVIS ऑनलाइन है।");
+    }, 1000);
+
+});
+
+// Clock
 
 function updateClock() {
 
-    let now = new Date();
+    const now = new Date();
 
-    let time = now.toLocaleTimeString("hi-IN");
+    const time = now.toLocaleTimeString("hi-IN");
 
-    let date = now.toLocaleDateString("hi-IN");
+    const clock = document.getElementById("clock");
 
-    if (document.getElementById("clock")) {
-        document.getElementById("clock").innerText = time;
-    }
-
-    if (document.getElementById("time")) {
-        document.getElementById("time").innerText = time;
-    }
-
-    if (document.getElementById("date")) {
-        document.getElementById("date").innerText = date;
+    if (clock) {
+        clock.innerText = time;
     }
 }
 
 setInterval(updateClock, 1000);
-updateClock();
 
-// -------------------------------
-// WELCOME MESSAGE
-// -------------------------------
-
-window.onload = () => {
-
-    setTimeout(() => {
-
-        speak("नमस्ते Sir। JARVIS तैयार है।");
-
-    }, 1000);
-
-};
-
-// -------------------------------
-// SPEECH RECOGNITION
-// -------------------------------
+// Speech Recognition
 
 const SpeechRecognition =
     window.SpeechRecognition ||
@@ -73,9 +47,7 @@ const SpeechRecognition =
 
 if (!SpeechRecognition) {
 
-    alert(
-        "आपका ब्राउज़र Voice Recognition सपोर्ट नहीं करता।"
-    );
+    alert("Voice Recognition सपोर्ट नहीं है।");
 
 } else {
 
@@ -90,38 +62,14 @@ if (!SpeechRecognition) {
     const micBtn =
         document.getElementById("micBtn");
 
-    // ---------------------------
-    // MIC BUTTON
-    // ---------------------------
+    micBtn.onclick = () => {
 
-    if (micBtn) {
+        micBtn.innerText =
+            "🎤 सुन रहा हूँ...";
 
-        micBtn.addEventListener("click", () => {
-
-            micBtn.innerText =
-                "🎤 सुन रहा हूँ...";
-
-            recognition.start();
-
-        });
-
-    }
-
-    // ---------------------------
-    // START
-    // ---------------------------
-
-    recognition.onstart = () => {
-
-        console.log(
-            "JARVIS Listening..."
-        );
+        recognition.start();
 
     };
-
-    // ---------------------------
-    // RESULT
-    // ---------------------------
 
     recognition.onresult = (event) => {
 
@@ -135,15 +83,11 @@ if (!SpeechRecognition) {
         micBtn.innerText =
             "🎤 JARVIS";
 
-        // =====================
-        // YOUTUBE
-        // =====================
-
         if (
             command.includes("यूट्यूब")
         ) {
 
-            speak("ठीक है Sir।");
+            speak("ठीक है Sir");
 
             window.open(
                 "https://youtube.com",
@@ -152,15 +96,11 @@ if (!SpeechRecognition) {
 
         }
 
-        // =====================
-        // INSTAGRAM
-        // =====================
-
         else if (
             command.includes("इंस्टाग्राम")
         ) {
 
-            speak("जी Sir।");
+            speak("जी Sir");
 
             window.open(
                 "https://instagram.com",
@@ -169,16 +109,12 @@ if (!SpeechRecognition) {
 
         }
 
-        // =====================
-        // WHATSAPP
-        // =====================
-
         else if (
             command.includes("व्हाट्सएप")
         ) {
 
             speak(
-                "व्हाट्सएप खोल रहा हूँ Sir।"
+                "व्हाट्सएप खोल रहा हूँ Sir"
             );
 
             window.open(
@@ -188,201 +124,41 @@ if (!SpeechRecognition) {
 
         }
 
-        // =====================
-        // GOOGLE
-        // =====================
-
-        else if (
-            command.includes("गूगल")
-        ) {
-
-            speak(
-                "एक क्षण Sir।"
-            );
-
-            window.open(
-                "https://google.com",
-                "_blank"
-            );
-
-        }
-
-        // =====================
-        // MUSIC
-        // =====================
-
-        else if (
-            command.includes("गाना") ||
-            command.includes("म्यूजिक")
-        ) {
-
-            speak(
-                "संगीत चला रहा हूँ Sir।"
-            );
-
-            window.open(
-                "https://music.youtube.com",
-                "_blank"
-            );
-
-        }
-
-        // =====================
-        // TIME
-        // =====================
-
         else if (
             command.includes("समय")
         ) {
 
-            let time =
+            const time =
                 new Date()
-                .toLocaleTimeString(
-                    "hi-IN"
-                );
+                .toLocaleTimeString("hi-IN");
 
             speak(
-                "अभी " +
-                time +
-                " बजे हैं Sir।"
+                "अभी " + time + " बजे हैं Sir"
             );
 
         }
-
-        // =====================
-        // SEARCH
-        // =====================
-
-        else if (
-            command.startsWith("खोजो")
-        ) {
-
-            let query =
-                command
-                .replace(
-                    "खोजो",
-                    ""
-                )
-                .trim();
-
-            if (query !== "") {
-
-                speak(
-                    "खोज रहा हूँ Sir।"
-                );
-
-                window.open(
-                    "https://www.google.com/search?q=" +
-                    encodeURIComponent(
-                        query
-                    ),
-                    "_blank"
-                );
-
-            }
-
-        }
-
-        // =====================
-        // WHO ARE YOU
-        // =====================
-
-        else if (
-            command.includes(
-                "तुम कौन हो"
-            )
-        ) {
-
-            speak(
-                "मैं JARVIS हूँ Sir। आपका निजी सहायक।"
-            );
-
-        }
-
-        // =====================
-        // GREETING
-        // =====================
-
-        else if (
-            command.includes(
-                "नमस्ते"
-            )
-        ) {
-
-            speak(
-                "नमस्ते Sir।"
-            );
-
-        }
-
-        // =====================
-        // UNKNOWN
-        // =====================
 
         else {
 
             speak(
-                "माफ़ कीजिए Sir, मैं यह कमांड अभी नहीं समझ पाया।"
+                "माफ़ कीजिए Sir, मैं यह कमांड नहीं समझ पाया।"
             );
 
         }
 
     };
 
-    // ---------------------------
-    // END
-    // ---------------------------
+    recognition.onerror = (e) => {
 
-    recognition.onend = () => {
+        console.log(e.error);
 
         micBtn.innerText =
             "🎤 JARVIS";
 
-    };
-
-    // ---------------------------
-    // ERROR
-    // ---------------------------
-
-    recognition.onerror = (event) => {
-
-        console.log(
-            event.error
+        speak(
+            "माइक्रोफोन में समस्या है Sir"
         );
 
-        micBtn.innerText =
-            "🎤 JARVIS";
-
-        if (
-            event.error ===
-            "not-allowed"
-        ) {
-
-            speak(
-                "Sir, कृपया माइक्रोफोन की अनुमति दें।"
-            );
-
-        }
-
-        else if (
-            event.error ===
-            "no-speech"
-        ) {
-
-            speak(
-                "मैं आपकी आवाज़ नहीं सुन पाया, Sir।"
-            );
-
-        }
-
-        else {
-
-            speak(
-                "माइक्रोफोन में समस्या है Sir।"
-            );
-
-        }
-
     };
 
-            }
+}
