@@ -1,192 +1,106 @@
 <!DOCTYPE html>
 <html lang="hi">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JARVIS AI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JARVIS AI</title>
 
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body{
+      margin:0;
+      background:#08111f;
+      color:#00e5ff;
+      font-family:Arial,sans-serif;
+      text-align:center;
+    }
+
+    .top-bar{
+      display:flex;
+      justify-content:space-between;
+      padding:20px;
+      font-size:20px;
+    }
+
+    .logo{
+      font-size:32px;
+      font-weight:bold;
+    }
+
+    .main{
+      margin-top:50px;
+    }
+
+    .circle{
+      width:250px;
+      height:250px;
+      border:5px solid cyan;
+      border-radius:50%;
+      margin:auto;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      animation:spin 8s linear infinite;
+
+      box-shadow:0 0 30px cyan;
+    }
+
+    .inner{
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      background:rgba(0,255,255,0.1);
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+
+      font-size:30px;
+      font-weight:bold;
+    }
+
+    @keyframes spin{
+      from{
+        transform:rotate(0deg);
+      }
+      to{
+        transform:rotate(360deg);
+      }
+    }
+
+    #micBtn{
+      margin-top:40px;
+      padding:15px 40px;
+      border:none;
+      border-radius:50px;
+      background:cyan;
+      color:black;
+      font-size:20px;
+      cursor:pointer;
+    }
+
+    .apps{
+      margin-top:40px;
+    }
+
+    .apps button{
+      margin:10px;
+      padding:12px 20px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      background:#00e5ff;
+      color:black;
+    }
+  </style>
+
 </head>
 
 <body>
 
-    <!-- TOP BAR -->
+  <div class="top-bar">
 
-    <header>
-
-        <div class="logo">
-            JARVIS
-        </div>
-
-        <div class="top-right">
-
-            <span>🎤</span>
-            <span>📶</span>
-            <span>🔋100%</span>
-            <span id="clock">10:30 PM</span>
-
-        </div>
-
-    </header>
-
-    <!-- MAIN CONTAINER -->
-
-    <div class="container">
-
-        <!-- LEFT PANEL -->
-
-        <div class="left-panel glass">
-
-            <h1 id="time">10:30 PM</h1>
-
-            <p id="date">
-                JARVIS AI Assistant
-            </p>
-
-            <br>
-
-            <h2>नमस्कार Sir</h2>
-
-            <p>
-                मैं आपकी किस प्रकार सहायता कर सकता हूँ?
-            </p>
-
-            <hr>
-
-            <h2>System Status</h2>
-
-            <br>
-
-            <div class="status-box">
-
-                <div>
-                    <h3>CPU</h3>
-                    <p>28%</p>
-                </div>
-
-                <div>
-                    <h3>RAM</h3>
-                    <p>45%</p>
-                </div>
-
-                <div>
-                    <h3>DISK</h3>
-                    <p>62%</p>
-                </div>
-
-            </div>
-
-            <br>
-
-            <hr>
-
-            <h2>Quick Access</h2>
-
-            <ul>
-
-                <li>📁 Files</li>
-                <li>📷 Camera</li>
-                <li>🖼️ Photos</li>
-                <li>⬇️ Downloads</li>
-                <li>⚙️ Settings</li>
-
-            </ul>
-
-        </div>
-
-        <!-- CENTER -->
-
-        <div class="center-panel">
-
-            <div class="jarvis-circle">
-
-                <div class="inner-circle">
-
-                    JARVIS
-
-                </div>
-
-            </div>
-
-        <button id="micBtn">
-        🎤 JARVIS
-        </button>
-
-        </div>
-
-        <!-- RIGHT PANEL -->
-
-        <div class="right-panel">
-
-            <!-- WEATHER -->
-
-            <div class="card glass">
-
-                <h2>🌤 Weather</h2>
-
-                <h1>28°C</h1>
-
-                <p>Cloudy</p>
-
-            </div>
-
-            <!-- NEWS -->
-
-            <div class="card glass">
-
-                <h2>📰 Latest News</h2>
-
-                <ul>
-
-                    <li>ISRO New Mission</li>
-                    <li>AI Technology Update</li>
-                    <li>India Tech Summit</li>
-
-                </ul>
-
-            </div>
-
-            <!-- APPS -->
-
-            <div class="card glass">
-
-                <h2>📱 Applications</h2>
-
-                <div class="apps">
-
-                    <button onclick="window.open('https://google.com')">
-                        Chrome
-                    </button>
-
-                    <button onclick="window.open('https://youtube.com')">
-                        YouTube
-                    </button>
-
-                    <button onclick="window.open('https://music.youtube.com')">
-                        Music
-                    </button>
-
-                    <button onclick="window.open('https://instagram.com')">
-                        Instagram
-                    </button>
-
-                    <button onclick="window.open('https://web.whatsapp.com')">
-                        WhatsApp
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-    <script src="script.js"></script>
-
-</body>
-
-</html>
+    <
