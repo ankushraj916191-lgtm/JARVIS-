@@ -1,0 +1,243 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#07111f;
+    color:#00e6ff;
+    min-height:100vh;
+}
+
+/* TOP BAR */
+
+header{
+    height:60px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    background:rgba(0,0,0,0.4);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid #00e6ff;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:bold;
+    letter-spacing:3px;
+}
+
+.top-right{
+    display:flex;
+    gap:15px;
+}
+
+/* MAIN LAYOUT */
+
+.container{
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    padding:20px;
+}
+
+/* GLASS EFFECT */
+
+.glass{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(0,230,255,0.3);
+    backdrop-filter:blur(10px);
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(0,230,255,0.2);
+}
+
+/* LEFT PANEL */
+
+.left-panel{
+    width:300px;
+    padding:20px;
+}
+
+.left-panel h1{
+    font-size:40px;
+}
+
+.left-panel ul{
+    margin-top:15px;
+    padding-left:20px;
+}
+
+.left-panel li{
+    margin:10px 0;
+}
+
+/* CENTER PANEL */
+
+.center-panel{
+    flex:1;
+    min-width:300px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+/* JARVIS CIRCLE */
+
+.jarvis-circle{
+    width:300px;
+    height:300px;
+    border:5px solid #00e6ff;
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    animation:rotate 8s linear infinite;
+
+    box-shadow:
+    0 0 20px #00e6ff,
+    0 0 50px #00e6ff;
+}
+
+.inner-circle{
+    width:180px;
+    height:180px;
+    border-radius:50%;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:rgba(0,230,255,0.1);
+
+    font-size:30px;
+    font-weight:bold;
+}
+
+@keyframes rotate{
+
+    from{
+        transform:rotate(0deg);
+    }
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* MIC BUTTON */
+
+#micBtn{
+
+    margin-top:30px;
+
+    padding:15px 40px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:#00e6ff;
+
+    color:black;
+
+    font-size:18px;
+
+    cursor:pointer;
+}
+
+#micBtn:hover{
+
+    transform:scale(1.05);
+
+}
+
+/* RIGHT PANEL */
+
+.right-panel{
+
+    width:300px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+.card{
+
+    padding:20px;
+
+}
+
+.apps{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+}
+
+.apps button{
+
+    padding:10px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#00e6ff;
+
+    color:black;
+
+    cursor:pointer;
+
+}
+
+/* MOBILE RESPONSIVE */
+
+@media(max-width:900px){
+
+    .container{
+
+        flex-direction:column;
+
+        align-items:center;
+
+    }
+
+    .left-panel,
+    .right-panel{
+
+        width:100%;
+
+    }
+
+    .jarvis-circle{
+
+        width:220px;
+        height:220px;
+
+    }
+
+    .inner-circle{
+
+        width:130px;
+        height:130px;
+
+        font-size:24px;
+
+    }
+
+}
